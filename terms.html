@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use — L2aaS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white antialiased min-h-screen flex flex-col">
+
+  <!-- Nav -->
+  <nav class="border-b border-slate-800/60 backdrop-blur-md bg-slate-950/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        <span class="text-indigo-400">L2</span><span class="text-white">aaS</span>
+      </a>
+      <div class="flex items-center gap-6 text-sm text-slate-400">
+        <a href="/" class="hover:text-white transition">Home</a>
+        <a href="/dashboard.html" class="hover:text-white transition">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="flex-1 py-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl md:text-4xl font-bold mb-2">Terms of Use</h1>
+      <p class="text-slate-500 text-sm mb-12">Last updated: April 8, 2026</p>
+
+      <div class="prose prose-invert prose-slate max-w-none space-y-8 text-slate-300 leading-relaxed">
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">1. Overview</h2>
+          <p>L2aaS is a hosting service operated by Mesa Operations LLC ("we", "us", "our"), a Wyoming limited liability company. By purchasing hosting credits or using the service, you ("customer", "you") agree to these terms.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">2. Hosting Credits</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong>Prepaid.</strong> All hosting credits are purchased in advance. Credits fund the operation of your dedicated L2 chain infrastructure.</li>
+            <li><strong>Non-refundable.</strong> All credit purchases are final. No refunds will be issued under any circumstances.</li>
+            <li><strong>No expiration.</strong> Purchased credits do not expire and remain in your account indefinitely, subject to the inactivity policy below.</li>
+            <li><strong>Volume discounts.</strong> Larger purchases receive bonus credits as displayed on the purchase page at the time of transaction.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">3. Service Description</h2>
+          <p>We provide dedicated L2 blockchain infrastructure including:</p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>A dedicated L2 chain with unique chain ID</li>
+            <li>RPC endpoint for interacting with your chain</li>
+            <li>Block explorer access</li>
+            <li>Multi-region redundancy for high availability</li>
+            <li>Full EVM compatibility</li>
+          </ul>
+          <p class="mt-3">Credits are debited monthly to cover the cost of operating your chain infrastructure. The monthly rate depends on your chain's activity level and resource usage.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">4. Balance Depletion</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong>Low balance warning.</strong> We will display a warning in your dashboard when your credit balance falls below two months of estimated usage.</li>
+            <li><strong>Zero balance.</strong> When your credit balance reaches zero, your L2 chain will stop producing finalized blocks. This is a natural consequence of the infrastructure running out of operational funding, not a punitive action.</li>
+            <li><strong>No data loss.</strong> Your chain data is preserved on disk even when the chain is stalled. No data is deleted upon balance depletion.</li>
+            <li><strong>Resumption.</strong> You may resume your chain at any time by purchasing additional credits. Your chain will resume block production automatically once credits are available.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">5. Inactivity and Data Retention</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong>90-day archive.</strong> If your credit balance has been zero for 90 consecutive days with no account activity, we may archive your chain data to cold storage and reclaim the server resources.</li>
+            <li><strong>Restoration.</strong> You may request restoration of archived chain data by purchasing credits sufficient to cover at least one month of hosting. Restoration may take up to 48 hours.</li>
+            <li><strong>1-year deletion.</strong> If your chain data has been archived for one year with no payment or restoration request, we reserve the right to permanently delete the archived data. This action is irreversible.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">6. Acceptable Use</h2>
+          <p>You agree not to use the service for:</p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Any activity that violates applicable law</li>
+            <li>Distributing malware or conducting cyberattacks</li>
+            <li>Operating services designed to defraud others</li>
+            <li>Generating excessive load that degrades service for other customers</li>
+          </ul>
+          <p class="mt-3">We reserve the right to suspend or terminate your chain for violations, with or without notice.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">7. Service Availability</h2>
+          <p>We strive to maintain high availability through multi-region redundancy. However, we do not guarantee 100% uptime. Scheduled maintenance windows will be announced in advance when possible. We are not liable for any losses resulting from service interruptions.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">8. Limitation of Liability</h2>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>The service is provided "as is" without warranty of any kind, express or implied.</li>
+            <li>We disclaim all warranties including merchantability, fitness for a particular purpose, and non-infringement.</li>
+            <li>Our total liability for any claim related to the service shall not exceed the amount you paid for credits in the 12 months preceding the claim.</li>
+            <li>We are not liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, data loss, or business interruption.</li>
+            <li>We are not responsible for the content, transactions, or smart contracts you deploy on your L2 chain.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">9. Indemnification</h2>
+          <p>You agree to indemnify and hold harmless Mesa Operations LLC, its officers, and agents from any claims, damages, or expenses arising from your use of the service or violation of these terms.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">10. Modifications</h2>
+          <p>We may update these terms at any time. Material changes will be posted on this page with an updated date. Continued use of the service after changes constitutes acceptance of the new terms.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">11. Governing Law</h2>
+          <p>These terms are governed by the laws of the State of Wyoming, United States. Any disputes shall be resolved in the courts of Sheridan County, Wyoming.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-3">12. Contact</h2>
+          <p>Mesa Operations LLC<br>30 N Gould St Ste R<br>Sheridan, WY 82801</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/60 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div class="text-sm text-slate-500">&copy; 2026 Mesa Operations LLC</div>
+      <a href="/" class="text-sm text-slate-500 hover:text-slate-300 transition">Home</a>
+    </div>
+  </footer>
+
+</body>
+</html>

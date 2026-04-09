@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Credits — L2aaS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+    .tier-card { transition: all 0.2s ease; }
+    .tier-card:hover { transform: translateY(-2px); }
+    .tier-card.selected { border-color: #6366f1; background: rgba(99,102,241,0.08); }
+  </style>
+</head>
+<body class="bg-slate-950 text-white antialiased min-h-screen flex flex-col">
+
+  <!-- Nav -->
+  <nav class="border-b border-slate-800/60 backdrop-blur-md bg-slate-950/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        <span class="text-indigo-400">L2</span><span class="text-white">aaS</span>
+      </a>
+      <div class="flex items-center gap-6 text-sm text-slate-400">
+        <a href="/" class="hover:text-white transition">Home</a>
+        <a href="/dashboard.html" class="hover:text-white transition">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 py-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">Buy Hosting Credits</h1>
+        <p class="text-slate-400">Select an amount. Larger purchases get bigger bonuses.</p>
+      </div>
+
+      <!-- Tier selector -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-10" id="tier-selector">
+        <button onclick="selectTier(0)" class="tier-card rounded-xl border border-slate-700 p-4 text-center cursor-pointer hover:border-slate-500" data-tier="0">
+          <div class="text-xl font-bold mb-1">$10</div>
+          <div class="text-sm text-slate-400">10 credits</div>
+        </button>
+        <button onclick="selectTier(1)" class="tier-card rounded-xl border border-slate-700 p-4 text-center cursor-pointer hover:border-slate-500" data-tier="1">
+          <div class="text-xl font-bold mb-1">$50</div>
+          <div class="text-sm text-emerald-400">75 credits</div>
+          <div class="text-xs text-emerald-500 mt-1">+50%</div>
+        </button>
+        <button onclick="selectTier(2)" class="tier-card selected rounded-xl border border-indigo-500 p-4 text-center cursor-pointer" data-tier="2">
+          <div class="text-xs text-indigo-300 font-medium mb-1">Popular</div>
+          <div class="text-xl font-bold mb-1">$100</div>
+          <div class="text-sm text-emerald-400">200 credits</div>
+          <div class="text-xs text-emerald-500 mt-1">+100%</div>
+        </button>
+        <button onclick="selectTier(3)" class="tier-card rounded-xl border border-slate-700 p-4 text-center cursor-pointer hover:border-slate-500" data-tier="3">
+          <div class="text-xl font-bold mb-1">$500</div>
+          <div class="text-sm text-emerald-400">1,500 credits</div>
+          <div class="text-xs text-emerald-500 mt-1">+200%</div>
+        </button>
+        <button onclick="selectTier(4)" class="tier-card rounded-xl border border-slate-700 p-4 text-center cursor-pointer hover:border-slate-500" data-tier="4">
+          <div class="text-xl font-bold mb-1">$1,000</div>
+          <div class="text-sm text-emerald-400">5,000 credits</div>
+          <div class="text-xs text-emerald-500 mt-1">+400%</div>
+        </button>
+      </div>
+
+      <!-- Summary -->
+      <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-slate-400">You pay</span>
+          <span class="text-2xl font-bold" id="pay-amount">$100</span>
+        </div>
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-slate-400">You receive</span>
+          <span class="text-2xl font-bold text-emerald-400" id="credit-amount">200 credits</span>
+        </div>
+        <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+          <span class="text-slate-400">Effective rate</span>
+          <span class="text-lg text-slate-300" id="effective-rate">$0.50 / credit</span>
+        </div>
+
+        <div class="pt-6 space-y-3">
+          <!-- Coinbase Onramp (Card) -->
+          <button id="btn-card" class="btn-primary w-full py-4 rounded-xl font-semibold text-white text-base transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            Pay with Card
+          </button>
+
+          <!-- USDC direct -->
+          <button id="btn-usdc" class="w-full py-4 rounded-xl font-semibold text-base border border-slate-600 text-slate-200 hover:border-slate-400 hover:text-white transition flex items-center justify-center gap-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Pay with USDC
+          </button>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-500 text-center">
+        Credits are prepaid, non-refundable, and never expire.
+        By purchasing you agree to our <a href="/terms.html" class="text-indigo-400 hover:underline">Terms of Use</a>.
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/60 py-8">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div class="text-sm text-slate-500">&copy; 2026 Mesa Operations LLC</div>
+      <a href="/terms.html" class="text-sm text-slate-500 hover:text-slate-300 transition">Terms</a>
+    </div>
+  </footer>
+
+  <script>
+    const tiers = [
+      { price: '$10',    credits: '10',    rate: '$1.00 / credit' },
+      { price: '$50',    credits: '75',    rate: '$0.67 / credit' },
+      { price: '$100',   credits: '200',   rate: '$0.50 / credit' },
+      { price: '$500',   credits: '1,500', rate: '$0.33 / credit' },
+      { price: '$1,000', credits: '5,000', rate: '$0.20 / credit' },
+    ];
+
+    let selectedTier = 2;
+
+    function selectTier(index) {
+      selectedTier = index;
+      document.querySelectorAll('.tier-card').forEach((el, i) => {
+        el.classList.toggle('selected', i === index);
+        if (i === index) {
+          el.classList.remove('border-slate-700');
+          el.classList.add('border-indigo-500');
+        } else {
+          el.classList.add('border-slate-700');
+          el.classList.remove('border-indigo-500');
+        }
+      });
+      document.getElementById('pay-amount').textContent = tiers[index].price;
+      document.getElementById('credit-amount').textContent = tiers[index].credits + ' credits';
+      document.getElementById('effective-rate').textContent = tiers[index].rate;
+    }
+
+    document.getElementById('btn-card').addEventListener('click', () => {
+      alert('Coinbase Onramp integration coming soon.\n\nThis will open a card payment flow powered by Coinbase that converts your payment to USDC automatically.');
+    });
+
+    document.getElementById('btn-usdc').addEventListener('click', () => {
+      alert('Wallet connection coming soon.\n\nThis will prompt you to connect your wallet (MetaMask, Coinbase Wallet, etc.) and approve a USDC transfer.');
+    });
+  </script>
+
+</body>
+</html>
