@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>L2aaS — Your Own L2 Blockchain in Minutes</title>
+  <title>L2aaS — Your Own Blockchain for Learning and Experimentation</title>
+  <meta name="description" content="Get your own blockchain in minutes. Pay with OpsGas prepaid credits. Use MetaMask, Remix, Hardhat — standard tools. Self-service, no sign-up required.">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --brand: #6366f1; --brand-dark: #4f46e5; }
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
     .card-glow { box-shadow: 0 0 40px rgba(99,102,241,0.08); }
-    .tier-popular { border: 2px solid #6366f1; }
     .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-    .btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+    .btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); transform: translateY(-1px); }
+    .btn-primary { transition: all 0.2s ease; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-answer.open { max-height: 500px; }
+    .faq-toggle svg { transition: transform 0.2s ease; }
+    .faq-toggle.open svg { transform: rotate(180deg); }
   </style>
 </head>
 <body class="bg-slate-950 text-white antialiased">
@@ -26,11 +31,11 @@
       <div class="hidden md:flex items-center gap-8 text-sm text-slate-400">
         <a href="#pricing" class="hover:text-white transition">Pricing</a>
         <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
         <a href="/terms.html" class="hover:text-white transition">Terms</a>
-        <a href="/dashboard.html" class="hover:text-white transition">Dashboard</a>
       </div>
-      <a href="/buy.html" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg text-white transition shadow-lg shadow-indigo-500/20">
-        Get Started
+      <a href="/buy.html" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg text-white shadow-lg shadow-indigo-500/20">
+        Buy OpsGas
       </a>
     </div>
   </nav>
@@ -38,57 +43,55 @@
   <!-- Hero -->
   <section class="gradient-bg">
     <div class="max-w-6xl mx-auto px-6 pt-24 pb-32 text-center">
-      <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium">
-        Now in Public Beta
-      </div>
       <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
-        Your own L2 blockchain<br>
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">in minutes</span>
+        Your own blockchain<br>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">for learning and experimentation</span>
       </h1>
       <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-        Deploy your own rollup chain with dedicated RPC, explorer, and full EVM compatibility.
-        Pay-as-you-go with hosting credits. Start at $10.
+        Get a dedicated EVM chain with your own RPC endpoint and Chain ID.
+        Powered by OpsGas &mdash; prepaid service credits you buy with USDC or credit card.
+        $20 of OpsGas runs your chain for about a month.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="/buy.html" class="btn-primary text-base font-semibold px-8 py-3.5 rounded-xl text-white transition shadow-lg shadow-indigo-500/25 w-full sm:w-auto">
-          Get Started &rarr;
+        <a href="/buy.html" class="btn-primary text-base font-semibold px-8 py-3.5 rounded-xl text-white shadow-lg shadow-indigo-500/25 w-full sm:w-auto">
+          Buy OpsGas &rarr;
         </a>
         <a href="#how-it-works" class="text-base font-semibold px-8 py-3.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition w-full sm:w-auto">
           How It Works
         </a>
       </div>
-      <p class="text-xs text-slate-500 mt-6">No sign-up required. Pay with card or USDC.</p>
+      <p class="text-xs text-slate-500 mt-6">No sign-up required. Minimum purchase: $10 USDC.</p>
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- What You Get -->
   <section class="py-24 border-t border-slate-800/60">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need to run your own chain</h2>
-        <p class="text-slate-400 max-w-xl mx-auto">Full EVM rollup with built-in redundancy. No DevOps required.</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">What you get</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">A real blockchain you control, running standard EVM tools you already know.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
           <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Instant Deployment</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Buy credits, get your RPC endpoint. Your chain is live in minutes with a dedicated chain ID and full EVM support.</p>
+          <h3 class="text-lg font-semibold mb-2">Dedicated RPC + Chain ID</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Your own endpoint and chain ID. Add it to MetaMask and start deploying contracts immediately.</p>
         </div>
         <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
           <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Built-in Redundancy</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Your chain runs on servers in multiple regions. If one goes down, a standby takes over in seconds. True high availability.</p>
+          <h3 class="text-lg font-semibold mb-2">Funded Wallet</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Your wallet comes pre-funded with native gas so you can deploy and interact with contracts right away.</p>
         </div>
         <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
           <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
-            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Simple Pricing</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Prepaid hosting credits with volume discounts. No hidden fees, no monthly contracts. Buy more when you need more.</p>
+          <h3 class="text-lg font-semibold mb-2">Standard Tools</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Full EVM compatibility. Use MetaMask, Remix, Hardhat, Foundry, ethers.js &mdash; whatever you already know.</p>
         </div>
       </div>
     </div>
@@ -99,90 +102,211 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
-        <p class="text-slate-400 max-w-xl mx-auto">Three steps from zero to your own blockchain.</p>
+        <p class="text-slate-400 max-w-xl mx-auto">Four steps from zero to your own blockchain.</p>
       </div>
-      <div class="grid md:grid-cols-3 gap-12">
+      <div class="grid md:grid-cols-4 gap-10">
         <div class="text-center">
           <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl font-bold text-indigo-400">1</span>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Buy Credits</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Pay with a credit card or USDC. Credits are loaded instantly and never expire.</p>
+          <h3 class="text-lg font-semibold mb-2">Buy OpsGas</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Pay with a credit card (via Coinbase Onramp) or send USDC directly from your wallet. Minimum $10.</p>
         </div>
         <div class="text-center">
           <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl font-bold text-indigo-400">2</span>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Get Your Endpoint</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">We provision your dedicated L2 chain and hand you the RPC endpoint, chain ID, and explorer URL.</p>
+          <h3 class="text-lg font-semibold mb-2">Get Your Chain</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">We provision your dedicated blockchain and hand you an RPC URL, Chain ID, and a funded wallet.</p>
         </div>
         <div class="text-center">
           <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl font-bold text-indigo-400">3</span>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Build &amp; Deploy</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Connect any EVM wallet or tool. Deploy contracts, run dApps, do whatever you want on your own chain.</p>
+          <h3 class="text-lg font-semibold mb-2">Build and Learn</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Connect MetaMask, open Remix or Hardhat, deploy contracts, and experiment freely on your own chain.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-indigo-400">4</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Top Up When Needed</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">OpsGas powers hosting, transactions, and storage. Buy more whenever you need it. Volume discounts available.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is OpsGas -->
+  <section class="py-24 border-t border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-10 card-glow">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">What is OpsGas?</h2>
+        <p class="text-slate-400 leading-relaxed mb-6 text-center max-w-2xl mx-auto">
+          OpsGas is prepaid service credit that powers everything on your blockchain &mdash; hosting, transactions, and storage. Think of it like prepaid electricity or arcade tokens.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6 text-sm">
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">$20 of OpsGas runs a blockchain for approximately 1 month</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">Minimum purchase: $10 USDC</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">Volume discounts on larger purchases</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">Pay with credit card (Coinbase Onramp) or USDC from wallet</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">Non-refundable, non-transferable, no external value</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-400 mt-0.5">&#9654;</span>
+              <span class="text-slate-300">Buy more whenever you need it &mdash; no subscriptions</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing -->
-  <section id="pricing" class="py-24 border-t border-slate-800/60">
+  <section id="pricing" class="py-24 border-t border-slate-800/60 bg-slate-900/30">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, prepaid pricing</h2>
-        <p class="text-slate-400 max-w-xl mx-auto">Buy more credits, get bigger discounts. No subscriptions, no surprises.</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">OpsGas pricing</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">Buy more, pay less per unit. No subscriptions, no surprises.</p>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full max-w-3xl mx-auto">
           <thead>
             <tr class="border-b border-slate-800">
-              <th class="text-left py-4 px-6 text-sm font-semibold text-slate-300">Prepay Amount</th>
-              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Hosting Credits</th>
-              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Effective Rate</th>
-              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Bonus</th>
+              <th class="text-left py-4 px-6 text-sm font-semibold text-slate-300">Purchase (USDC)</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">OpsGas Received</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Approx. Runtime</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Discount</th>
             </tr>
           </thead>
           <tbody>
             <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
               <td class="py-4 px-6 font-semibold">$10</td>
-              <td class="py-4 px-6 text-center text-slate-300">10</td>
-              <td class="py-4 px-6 text-center text-slate-400">$1.00 / credit</td>
+              <td class="py-4 px-6 text-center text-slate-300">10 OpsGas</td>
+              <td class="py-4 px-6 text-center text-slate-400">~2 weeks</td>
               <td class="py-4 px-6 text-center"><span class="text-slate-500 text-sm">Base</span></td>
             </tr>
             <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
-              <td class="py-4 px-6 font-semibold">$50</td>
-              <td class="py-4 px-6 text-center text-slate-300">75</td>
-              <td class="py-4 px-6 text-center text-slate-400">$0.67 / credit</td>
+              <td class="py-4 px-6 font-semibold">$20</td>
+              <td class="py-4 px-6 text-center text-slate-300">20 OpsGas</td>
+              <td class="py-4 px-6 text-center text-slate-400">~1 month</td>
+              <td class="py-4 px-6 text-center"><span class="text-slate-500 text-sm">Base</span></td>
+            </tr>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition" style="border: 2px solid rgba(99,102,241,0.3); background: rgba(99,102,241,0.05);">
+              <td class="py-4 px-6 font-semibold">$50 <span class="ml-2 text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full">Popular</span></td>
+              <td class="py-4 px-6 text-center text-slate-300 font-semibold">75 OpsGas</td>
+              <td class="py-4 px-6 text-center text-indigo-300 font-medium">~3.5 months</td>
               <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+50%</span></td>
             </tr>
-            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition tier-popular bg-indigo-500/5">
-              <td class="py-4 px-6 font-semibold">$100 <span class="ml-2 text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full">Popular</span></td>
-              <td class="py-4 px-6 text-center text-slate-300 font-semibold">200</td>
-              <td class="py-4 px-6 text-center text-indigo-300 font-medium">$0.50 / credit</td>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
+              <td class="py-4 px-6 font-semibold">$100</td>
+              <td class="py-4 px-6 text-center text-slate-300">200 OpsGas</td>
+              <td class="py-4 px-6 text-center text-slate-400">~10 months</td>
               <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+100%</span></td>
             </tr>
-            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
-              <td class="py-4 px-6 font-semibold">$500</td>
-              <td class="py-4 px-6 text-center text-slate-300">1,500</td>
-              <td class="py-4 px-6 text-center text-slate-400">$0.33 / credit</td>
-              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+200%</span></td>
-            </tr>
             <tr class="hover:bg-slate-900/40 transition">
-              <td class="py-4 px-6 font-semibold">$1,000</td>
-              <td class="py-4 px-6 text-center text-slate-300">5,000</td>
-              <td class="py-4 px-6 text-center text-slate-400">$0.20 / credit</td>
-              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+400%</span></td>
+              <td class="py-4 px-6 font-semibold">$500</td>
+              <td class="py-4 px-6 text-center text-slate-300">1,500 OpsGas</td>
+              <td class="py-4 px-6 text-center text-slate-400">~6 years</td>
+              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+200%</span></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="text-center mt-10">
-        <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-8 py-3.5 rounded-xl text-white transition shadow-lg shadow-indigo-500/25">
-          Buy Credits &rarr;
+        <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-8 py-3.5 rounded-xl text-white shadow-lg shadow-indigo-500/25">
+          Buy OpsGas &rarr;
         </a>
-        <p class="text-xs text-slate-500 mt-4">Credits are prepaid, non-refundable, and never expire.</p>
+        <p class="text-xs text-slate-500 mt-4">OpsGas is prepaid, non-refundable, and non-transferable. No external value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 border-t border-slate-800/60">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+      </div>
+      <div class="space-y-4" id="faq-list">
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">What exactly do I get?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">You get a dedicated RPC URL, a unique Chain ID, and a wallet pre-funded with native gas. Add the RPC to MetaMask, and you have your own blockchain to deploy contracts, run dApps, and experiment with.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">What is OpsGas?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">OpsGas is a prepaid service credit that powers your blockchain. It covers hosting, transaction processing, and storage. Think of it like prepaid electricity or arcade tokens &mdash; it has no value outside this platform, is non-refundable, and is non-transferable.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">How do I pay?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">Two options: (1) Credit card via Coinbase Onramp, which converts your payment to USDC automatically, or (2) send USDC directly from any compatible wallet (MetaMask, Coinbase Wallet, etc.).</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">Is there an SLA or support?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">No. L2aaS is a self-service learning and experimentation tool. The service is provided as-is with no SLA and no support. It is not intended for production workloads.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">What tools can I use?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">Any EVM-compatible tool works: MetaMask, Remix IDE, Hardhat, Foundry, ethers.js, web3.js, Truffle, and more. If it connects to an RPC endpoint, it works with your chain.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+            <span class="font-semibold text-sm">Can I get a refund?</span>
+            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-slate-400 text-sm leading-relaxed">No. OpsGas is non-refundable and non-transferable. Please start with the $10 minimum to try the service before making larger purchases.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -191,9 +315,9 @@
   <section class="py-24 border-t border-slate-800/60 gradient-bg">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to launch your own chain?</h2>
-      <p class="text-slate-400 text-lg mb-8">Start with $10 and have your own L2 running in minutes.</p>
-      <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-10 py-4 rounded-xl text-white transition shadow-lg shadow-indigo-500/25">
-        Get Started &rarr;
+      <p class="text-slate-400 text-lg mb-8">Start with $10 of OpsGas and have your own blockchain running in minutes.</p>
+      <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-10 py-4 rounded-xl text-white shadow-lg shadow-indigo-500/25">
+        Buy OpsGas &rarr;
       </a>
     </div>
   </section>
@@ -202,14 +326,30 @@
   <footer class="border-t border-slate-800/60 py-12">
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="text-sm text-slate-500">
-        &copy; 2026 Mesa Operations LLC. All rights reserved.
+        &copy; 2026 L2aaS. All rights reserved.
       </div>
       <div class="flex items-center gap-6 text-sm text-slate-500">
         <a href="/terms.html" class="hover:text-slate-300 transition">Terms of Use</a>
-        <a href="/dashboard.html" class="hover:text-slate-300 transition">Dashboard</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-toggle').forEach(t => t.classList.remove('open'));
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+  </script>
 
 </body>
 </html>
