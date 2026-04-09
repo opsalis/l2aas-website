@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L2aaS — Your Own L2 Blockchain in Minutes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --brand: #6366f1; --brand-dark: #4f46e5; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+    .card-glow { box-shadow: 0 0 40px rgba(99,102,241,0.08); }
+    .tier-popular { border: 2px solid #6366f1; }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+  </style>
+</head>
+<body class="bg-slate-950 text-white antialiased">
+
+  <!-- Nav -->
+  <nav class="border-b border-slate-800/60 backdrop-blur-md bg-slate-950/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        <span class="text-indigo-400">L2</span><span class="text-white">aaS</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-slate-400">
+        <a href="#pricing" class="hover:text-white transition">Pricing</a>
+        <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
+        <a href="/terms.html" class="hover:text-white transition">Terms</a>
+        <a href="/dashboard.html" class="hover:text-white transition">Dashboard</a>
+      </div>
+      <a href="/buy.html" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg text-white transition shadow-lg shadow-indigo-500/20">
+        Get Started
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="gradient-bg">
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-32 text-center">
+      <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium">
+        Now in Public Beta
+      </div>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+        Your own L2 blockchain<br>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">in minutes</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Deploy your own rollup chain with dedicated RPC, explorer, and full EVM compatibility.
+        Pay-as-you-go with hosting credits. Start at $10.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/buy.html" class="btn-primary text-base font-semibold px-8 py-3.5 rounded-xl text-white transition shadow-lg shadow-indigo-500/25 w-full sm:w-auto">
+          Get Started &rarr;
+        </a>
+        <a href="#how-it-works" class="text-base font-semibold px-8 py-3.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition w-full sm:w-auto">
+          How It Works
+        </a>
+      </div>
+      <p class="text-xs text-slate-500 mt-6">No sign-up required. Pay with card or USDC.</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need to run your own chain</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">Full EVM rollup with built-in redundancy. No DevOps required.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Instant Deployment</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Buy credits, get your RPC endpoint. Your chain is live in minutes with a dedicated chain ID and full EVM support.</p>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Built-in Redundancy</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Your chain runs on servers in multiple regions. If one goes down, a standby takes over in seconds. True high availability.</p>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800/60 rounded-2xl p-8 card-glow">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Simple Pricing</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Prepaid hosting credits with volume discounts. No hidden fees, no monthly contracts. Buy more when you need more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-24 border-t border-slate-800/60 bg-slate-900/30">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">Three steps from zero to your own blockchain.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-indigo-400">1</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Buy Credits</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Pay with a credit card or USDC. Credits are loaded instantly and never expire.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-indigo-400">2</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Get Your Endpoint</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">We provision your dedicated L2 chain and hand you the RPC endpoint, chain ID, and explorer URL.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-indigo-400">3</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Build &amp; Deploy</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Connect any EVM wallet or tool. Deploy contracts, run dApps, do whatever you want on your own chain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-24 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, prepaid pricing</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">Buy more credits, get bigger discounts. No subscriptions, no surprises.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full max-w-3xl mx-auto">
+          <thead>
+            <tr class="border-b border-slate-800">
+              <th class="text-left py-4 px-6 text-sm font-semibold text-slate-300">Prepay Amount</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Hosting Credits</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Effective Rate</th>
+              <th class="text-center py-4 px-6 text-sm font-semibold text-slate-300">Bonus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
+              <td class="py-4 px-6 font-semibold">$10</td>
+              <td class="py-4 px-6 text-center text-slate-300">10</td>
+              <td class="py-4 px-6 text-center text-slate-400">$1.00 / credit</td>
+              <td class="py-4 px-6 text-center"><span class="text-slate-500 text-sm">Base</span></td>
+            </tr>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
+              <td class="py-4 px-6 font-semibold">$50</td>
+              <td class="py-4 px-6 text-center text-slate-300">75</td>
+              <td class="py-4 px-6 text-center text-slate-400">$0.67 / credit</td>
+              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+50%</span></td>
+            </tr>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition tier-popular bg-indigo-500/5">
+              <td class="py-4 px-6 font-semibold">$100 <span class="ml-2 text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full">Popular</span></td>
+              <td class="py-4 px-6 text-center text-slate-300 font-semibold">200</td>
+              <td class="py-4 px-6 text-center text-indigo-300 font-medium">$0.50 / credit</td>
+              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+100%</span></td>
+            </tr>
+            <tr class="border-b border-slate-800/60 hover:bg-slate-900/40 transition">
+              <td class="py-4 px-6 font-semibold">$500</td>
+              <td class="py-4 px-6 text-center text-slate-300">1,500</td>
+              <td class="py-4 px-6 text-center text-slate-400">$0.33 / credit</td>
+              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+200%</span></td>
+            </tr>
+            <tr class="hover:bg-slate-900/40 transition">
+              <td class="py-4 px-6 font-semibold">$1,000</td>
+              <td class="py-4 px-6 text-center text-slate-300">5,000</td>
+              <td class="py-4 px-6 text-center text-slate-400">$0.20 / credit</td>
+              <td class="py-4 px-6 text-center"><span class="text-emerald-400 text-sm font-medium">+400%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-10">
+        <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-8 py-3.5 rounded-xl text-white transition shadow-lg shadow-indigo-500/25">
+          Buy Credits &rarr;
+        </a>
+        <p class="text-xs text-slate-500 mt-4">Credits are prepaid, non-refundable, and never expire.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 border-t border-slate-800/60 gradient-bg">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to launch your own chain?</h2>
+      <p class="text-slate-400 text-lg mb-8">Start with $10 and have your own L2 running in minutes.</p>
+      <a href="/buy.html" class="btn-primary inline-block text-base font-semibold px-10 py-4 rounded-xl text-white transition shadow-lg shadow-indigo-500/25">
+        Get Started &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/60 py-12">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-slate-500">
+        &copy; 2026 Mesa Operations LLC. All rights reserved.
+      </div>
+      <div class="flex items-center gap-6 text-sm text-slate-500">
+        <a href="/terms.html" class="hover:text-slate-300 transition">Terms of Use</a>
+        <a href="/dashboard.html" class="hover:text-slate-300 transition">Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

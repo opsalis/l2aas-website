@@ -1,0 +1,18 @@
+name = "l2aas"
+compatibility_date = "2024-09-25"
+pages_build_output_dir = "."
+
+[vars]
+ENVIRONMENT = "production"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "placeholder-sessions-kv-id"
+
+[[kv_namespaces]]
+binding = "CUSTOMERS"
+id = "placeholder-customers-kv-id"
+
+[[kv_namespaces]]
+binding = "USAGE_CACHE"
+id = "placeholder-usage-cache-kv-id"
