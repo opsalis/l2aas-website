@@ -4,7 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>L2aaS — Your Own Blockchain in Minutes</title>
-  <meta name="description" content="Get your own blockchain in minutes. Basic from $20/month, Production from $200/month. Pay with USDC or credit card. Volume discounts up to 25%.">
+  <meta name="description" content="Get your own blockchain in minutes. L2 as a Service from $20/mo. Deploy smart contracts on a dedicated EVM chain with your own RPC endpoint.">
+  <meta name="keywords" content="own blockchain, L2 as a service, blockchain hosting, deploy smart contracts, OP Stack, Layer 2, developer blockchain, blockchain development, EVM chain, dedicated blockchain">
+  <link rel="canonical" href="https://l2aas.net/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛓</text></svg>">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://l2aas.net/">
+  <meta property="og:title" content="L2aaS — Your Own Blockchain in Minutes">
+  <meta property="og:description" content="Get your own blockchain from $20/mo. Dedicated EVM chain, RPC endpoint, and Chain ID. Deploy smart contracts instantly.">
+  <meta property="og:image" content="https://l2aas.net/og-image.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="L2aaS — Your Own Blockchain in Minutes">
+  <meta name="twitter:description" content="Get your own blockchain from $20/mo. Dedicated EVM chain, RPC endpoint, and Chain ID. Deploy smart contracts instantly.">
+  <meta name="twitter:image" content="https://l2aas.net/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,6 +54,73 @@
     input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     input[type=number] { -moz-appearance: textfield; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "L2aaS",
+    "description": "L2 as a Service — get your own blockchain in minutes. Dedicated EVM chain with RPC endpoint, Chain ID, and funded wallet.",
+    "url": "https://l2aas.net",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic",
+        "price": "20",
+        "priceCurrency": "USD",
+        "description": "Development and testing — single region, best effort availability"
+      },
+      {
+        "@type": "Offer",
+        "name": "Production",
+        "price": "200",
+        "priceCurrency": "USD",
+        "description": "Real apps — multi-region failover, 99.9% uptime SLA"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What exactly do I get?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You get a dedicated RPC URL, a unique Chain ID, and a wallet pre-funded with OPGas. Add the RPC to MetaMask, and you have your own blockchain to deploy contracts, run dApps, and experiment with."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is OPGas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OPGas is an operational metering unit like kilowatt-hours for electricity. It measures and bills blockchain resource consumption. Buy it with USDC (credit card or wallet). OPGas has no market value outside this platform and is non-refundable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I pay?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Two options: Credit card via Coinbase Onramp, which converts your payment to USDC automatically, or send USDC directly from any compatible wallet. Minimum purchase is $50 USDC."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I upgrade from Basic to Production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can upgrade at any time. Your chain data and Chain ID stay the same — we add multi-region replication and failover to your existing chain."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="bg-white text-gray-900 antialiased">
 
@@ -536,6 +617,8 @@
         &copy; 2026 L2aaS. All rights reserved.
       </div>
       <div class="flex items-center gap-6 text-sm text-gray-500">
+        <a href="/buy.html" class="hover:text-gray-700 transition">Buy OPGas</a>
+        <a href="/dashboard.html" class="hover:text-gray-700 transition">Dashboard</a>
         <a href="/terms.html" class="hover:text-gray-700 transition">Terms of Use</a>
       </div>
     </div>
