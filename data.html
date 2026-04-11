@@ -60,6 +60,9 @@
         <a href="/terms.html" class="hover:text-gray-900 transition">Terms</a>
       </div>
       <div class="flex items-center gap-3">
+        <button id="navConnectBtn" onclick="connectWallet()" class="text-sm font-semibold px-4 py-2 rounded-lg border-2 border-teal-600 text-teal-600 hover:bg-teal-50 transition">
+          Connect Wallet
+        </button>
         <a href="/#buy" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm">
           Buy OPGas
         </a>
@@ -87,6 +90,16 @@
       <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
         Bring data into your blockchain or take it out. No lock-in &mdash; your data is always yours.
       </p>
+      <!-- Wallet connect banner -->
+      <div class="mt-8 max-w-md mx-auto">
+        <div id="walletBanner" class="bg-white border-2 border-teal-200 rounded-xl p-4 shadow-sm">
+          <p class="text-sm text-gray-600 mb-3">Connect your wallet to import or export encrypted .l2aas files. Your wallet is your identity &mdash; no account needed.</p>
+          <button id="heroConnectBtn" onclick="connectWallet()" class="btn-primary w-full text-sm font-semibold px-6 py-3 rounded-lg shadow-sm">
+            Connect Wallet
+          </button>
+          <p id="walletStatus" class="text-xs text-gray-400 mt-2 text-center"></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -119,7 +132,7 @@
           </div>
           <p id="l2aasFileStatus" class="text-sm mt-3 text-gray-500"></p>
           <button onclick="importL2aasFile()" id="l2aasImportBtn" disabled class="btn-primary w-full mt-4 text-sm font-semibold px-6 py-3 rounded-lg shadow-sm opacity-50 cursor-not-allowed">Import to Chain</button>
-          <p class="text-xs text-gray-500 mt-2">File will be decrypted and deployed to your chain. Gas will be consumed.</p>
+          <p class="text-xs text-gray-500 mt-2">Wallet required. File is decrypted using your wallet's key and deployed to your chain.</p>
         </div>
 
         <!-- Option 2: CSV -->
@@ -292,14 +305,56 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
   <script>
-    // --- .l2aas file handling ---
+    // --- Wallet state ---
+    let connectedWallet = null;
     let selectedL2aasFile = null;
 
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert('Please install MetaMask or another Web3 wallet to continue.');
+        return;
+      }
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+
+        // Sign message to prove ownership (SIWE-style)
+        const message = 'L2aaS: I authorize data import and export.\nWallet: ' + address + '\nTimestamp: ' + Date.now();
+        const signature = await signer.signMessage(message);
+
+        connectedWallet = { address: address, signature: signature, message: message };
+
+        // Update UI
+        const short = address.slice(0, 6) + '...' + address.slice(-4);
+        document.getElementById('walletStatus').textContent = 'Connected: ' + short;
+        document.getElementById('walletStatus').className = 'text-xs text-green-600 font-medium mt-2 text-center';
+        document.getElementById('heroConnectBtn').textContent = 'Connected: ' + short;
+        document.getElementById('heroConnectBtn').classList.remove('btn-primary');
+        document.getElementById('heroConnectBtn').classList.add('bg-green-600', 'text-white');
+        document.getElementById('navConnectBtn').textContent = short;
+        document.getElementById('navConnectBtn').classList.remove('border-teal-600', 'text-teal-600');
+        document.getElementById('navConnectBtn').classList.add('border-green-600', 'text-green-600');
+
+        // Enable import button if file is selected
+        if (selectedL2aasFile) {
+          var btn = document.getElementById('l2aasImportBtn');
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      } catch (err) {
+        console.error('Wallet connect failed:', err);
+        alert('Wallet connection failed: ' + (err.message || err));
+      }
+    }
+
+    // --- .l2aas file handling ---
     function handleL2aasDrop(event) {
       event.preventDefault();
       event.currentTarget.classList.remove('dragover');
-      const file = event.dataTransfer.files[0];
+      var file = event.dataTransfer.files[0];
       if (file && file.name.endsWith('.l2aas')) {
         handleL2aasFile(file);
       } else {
@@ -311,56 +366,116 @@
     function handleL2aasFile(file) {
       if (!file) return;
       selectedL2aasFile = file;
-      const status = document.getElementById('l2aasFileStatus');
-      const sizeKB = (file.size / 1024).toFixed(1);
+      var status = document.getElementById('l2aasFileStatus');
+      var sizeKB = (file.size / 1024).toFixed(1);
       status.textContent = 'Selected: ' + file.name + ' (' + sizeKB + ' KB)';
       status.className = 'text-sm mt-3 text-teal-700 font-medium';
-      const btn = document.getElementById('l2aasImportBtn');
-      btn.disabled = false;
-      btn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+      // Only enable import if wallet is connected
+      if (connectedWallet) {
+        var btn = document.getElementById('l2aasImportBtn');
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        status.textContent += ' — Connect your wallet to import.';
+      }
     }
 
     function importL2aasFile() {
+      if (!connectedWallet) { alert('Connect your wallet first.'); return; }
       if (!selectedL2aasFile) return;
-      const status = document.getElementById('l2aasFileStatus');
-      status.textContent = 'Uploading and decrypting... This may take a moment.';
+
+      var status = document.getElementById('l2aasFileStatus');
+      status.textContent = 'Uploading and decrypting with your wallet key... This may take a moment.';
       status.className = 'text-sm mt-3 text-amber-600';
 
-      // TODO: POST to backend when k3s provisioner is deployed
-      // For now, show a placeholder message
-      setTimeout(function() {
-        status.textContent = 'Import endpoint not yet connected. The L2aaS backend will handle decryption and deployment when the provisioner is live.';
-        status.className = 'text-sm mt-3 text-gray-500';
-      }, 1500);
+      var formData = new FormData();
+      formData.append('file', selectedL2aasFile);
+      formData.append('walletAddress', connectedWallet.address);
+      formData.append('signature', connectedWallet.signature);
+      formData.append('message', connectedWallet.message);
+
+      fetch('/api/import', { method: 'POST', body: formData })
+        .then(function(resp) {
+          if (resp.ok) {
+            return resp.json().then(function(data) {
+              status.textContent = 'Import complete! ' + (data.contractsDeployed || 0) + ' contracts deployed to your chain.';
+              status.className = 'text-sm mt-3 text-green-600 font-medium';
+            });
+          } else {
+            return resp.json().then(function(err) {
+              status.textContent = err.error || 'Import failed.';
+              status.className = 'text-sm mt-3 text-red-600';
+            });
+          }
+        })
+        .catch(function(err) {
+          status.textContent = 'Import endpoint not yet connected. The L2aaS backend will handle decryption and deployment when the provisioner is live.';
+          status.className = 'text-sm mt-3 text-gray-500';
+        });
     }
 
     function importCSV() {
-      const file = document.getElementById('csvFileInput').files[0];
+      var file = document.getElementById('csvFileInput').files[0];
       if (!file) { alert('Please select a CSV file first.'); return; }
       alert('CSV import will be available when the L2aaS backend is deployed. File: ' + file.name);
     }
 
     function importJSON() {
-      const file = document.getElementById('jsonFileInput').files[0];
+      var file = document.getElementById('jsonFileInput').files[0];
       if (!file) { alert('Please select a JSON file first.'); return; }
       alert('JSON import will be available when the L2aaS backend is deployed. File: ' + file.name);
     }
 
     function importXML() {
-      const file = document.getElementById('xmlFileInput').files[0];
+      var file = document.getElementById('xmlFileInput').files[0];
       if (!file) { alert('Please select an XML file first.'); return; }
       alert('XML import will be available when the L2aaS backend is deployed. File: ' + file.name);
     }
 
     // --- Export handling ---
     function exportEncrypted() {
-      const scope = document.getElementById('exportScope').value;
-      alert('Encrypted .l2aas export (' + scope + ') will be available when the L2aaS backend is deployed. This export is free.');
+      if (!connectedWallet) { alert('Connect your wallet first to export encrypted data.'); return; }
+
+      var scope = document.getElementById('exportScope').value;
+      var statusEl = document.getElementById('l2aasFileStatus');
+
+      fetch('/api/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          walletAddress: connectedWallet.address,
+          signature: connectedWallet.signature,
+          message: connectedWallet.message,
+          scope: scope,
+          format: 'l2aas',
+        }),
+      })
+        .then(function(resp) {
+          if (resp.ok) {
+            return resp.blob().then(function(blob) {
+              var url = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = url;
+              a.download = 'l2aas-backup-' + Date.now() + '.l2aas';
+              a.click();
+              URL.revokeObjectURL(url);
+            });
+          } else {
+            return resp.json().then(function(err) {
+              alert(err.error || 'Export failed.');
+            });
+          }
+        })
+        .catch(function() {
+          alert('Encrypted .l2aas export (' + scope + ') will be available when the L2aaS backend is deployed. This export is free.');
+        });
     }
 
     function exportUnencrypted() {
-      const format = document.getElementById('exportFormat').value;
-      const scope = document.getElementById('exportScopeUnenc').value;
+      if (!connectedWallet) { alert('Connect your wallet first to export data.'); return; }
+      var format = document.getElementById('exportFormat').value;
+      var scope = document.getElementById('exportScopeUnenc').value;
       alert('Exporting as ' + format.toUpperCase() + ' (' + scope + ') will be available when the L2aaS backend is deployed. This export costs gas.');
     }
   </script>

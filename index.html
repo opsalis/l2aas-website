@@ -107,7 +107,7 @@
         "name": "How do I pay?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We accept Visa, Mastercard, and USDC. No crypto wallet required. Pay with your regular credit card via Coinbase Onramp, or send USDC directly from any compatible wallet. Minimum purchase is $50."
+          "text": "Connect your Web3 wallet (MetaMask, Coinbase Wallet, etc.) and send USDC directly. Your wallet is your identity. We also accept Visa and Mastercard via Coinbase Onramp. Minimum purchase is $50."
         }
       },
       {
@@ -139,6 +139,9 @@
         <a href="/terms.html" class="hover:text-gray-900 transition">Terms</a>
       </div>
       <div class="flex items-center gap-3">
+        <button id="navConnectBtn" onclick="connectWallet()" class="text-sm font-semibold px-4 py-2 rounded-lg border-2 border-teal-600 text-teal-600 hover:bg-teal-50 transition">
+          Connect Wallet
+        </button>
         <a href="#buy" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm">
           Buy OPGas
         </a>
@@ -177,7 +180,7 @@
           How It Works
         </a>
       </div>
-      <p class="text-xs text-gray-500 mt-6">No sign-up required. Pay with Visa, Mastercard, or USDC. No crypto wallet needed.</p>
+      <p class="text-xs text-gray-500 mt-6">Connect your wallet to get started. Your wallet is your identity &mdash; no accounts needed. Sign with MetaMask, Coinbase Wallet, or any Web3 wallet.</p>
     </div>
   </section>
 
@@ -359,7 +362,7 @@
           </a>
         </div>
 
-        <p class="text-xs text-gray-500 mt-4 text-center">Visa and Mastercard accepted via Coinbase Onramp. No crypto wallet needed.</p>
+        <p class="text-xs text-gray-500 mt-4 text-center">Connect your wallet to pay with USDC directly. Visa and Mastercard also accepted via Coinbase Onramp.</p>
       </div>
 
       <!-- Volume discount table -->
@@ -478,8 +481,8 @@
           <div class="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl font-bold text-teal-600">2</span>
           </div>
-          <h3 class="text-lg font-semibold mb-2 text-gray-900">Buy OPGas</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">Pay with Visa or Mastercard (via Coinbase Onramp) or send USDC directly. No crypto wallet needed. Minimum $50. Volume discounts up to 25%.</p>
+          <h3 class="text-lg font-semibold mb-2 text-gray-900">Connect Wallet &amp; Buy OPGas</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Connect your wallet, then send USDC directly or pay with card via Coinbase Onramp. Your wallet is your identity. Minimum $50. Volume discounts up to 25%.</p>
         </div>
         <div class="text-center">
           <div class="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center mx-auto mb-6">
@@ -543,7 +546,7 @@
             <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
           </button>
           <div class="faq-answer px-6 pb-5">
-            <p class="text-gray-600 text-sm leading-relaxed">We accept Visa, Mastercard, and USDC. No crypto wallet required &mdash; pay with your regular credit card via Coinbase Onramp, which handles the conversion automatically. You can also send USDC directly from any compatible wallet. Minimum purchase is $50.</p>
+            <p class="text-gray-600 text-sm leading-relaxed">Connect your Web3 wallet (MetaMask, Coinbase Wallet, etc.) and send USDC directly. Your wallet is your identity &mdash; no account creation needed. We also accept Visa and Mastercard via Coinbase Onramp. Minimum purchase is $50.</p>
           </div>
         </div>
 
@@ -627,7 +630,38 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
   <script>
+    // --- Wallet state ---
+    let connectedWallet = null;
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert('Please install MetaMask or another Web3 wallet to continue.');
+        return;
+      }
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+
+        // Sign message to prove ownership (SIWE-style)
+        const message = 'L2aaS: I authorize blockchain operations.\nWallet: ' + address + '\nTimestamp: ' + Date.now();
+        const signature = await signer.signMessage(message);
+
+        connectedWallet = { address: address, signature: signature, message: message };
+
+        // Update UI
+        const short = address.slice(0, 6) + '...' + address.slice(-4);
+        document.getElementById('navConnectBtn').textContent = short;
+        document.getElementById('navConnectBtn').classList.remove('border-teal-600', 'text-teal-600');
+        document.getElementById('navConnectBtn').classList.add('border-green-600', 'text-green-600');
+      } catch (err) {
+        console.error('Wallet connect failed:', err);
+        alert('Wallet connection failed: ' + (err.message || err));
+      }
+    }
+
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
       const isOpen = answer.classList.contains('open');

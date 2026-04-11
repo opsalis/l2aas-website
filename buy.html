@@ -38,6 +38,9 @@
       <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
         <a href="/" class="hover:text-gray-900 transition">Home</a>
         <a href="/terms.html" class="hover:text-gray-900 transition">Terms</a>
+        <button id="navConnectBtn" onclick="connectWallet()" class="font-semibold px-4 py-2 rounded-lg border-2 border-teal-600 text-teal-600 hover:bg-teal-50 transition">
+          Connect Wallet
+        </button>
       </div>
     </div>
   </nav>
@@ -49,9 +52,21 @@
         <svg class="w-10 h-10 text-teal-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
       <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Buy OPGas</h1>
-      <p class="text-gray-600 text-lg mb-2">Coming soon.</p>
+      <p class="text-gray-600 text-lg mb-2">Connect your wallet to get started.</p>
+      <p class="text-gray-500 text-sm max-w-md mx-auto mb-6">
+        Your wallet is your identity &mdash; no accounts needed. Connect your wallet, choose a plan, sign the transaction, and your chain is provisioned.
+      </p>
+
+      <!-- Wallet connect -->
+      <div id="walletSection" class="mb-8">
+        <button id="buyConnectBtn" onclick="connectWallet()" class="btn-primary text-sm font-semibold px-8 py-3 rounded-lg shadow-sm">
+          Connect Wallet to Buy OPGas
+        </button>
+        <p id="walletStatus" class="text-xs text-gray-400 mt-3"></p>
+      </div>
+
       <p class="text-gray-500 text-sm max-w-md mx-auto mb-10">
-        The OPGas purchase flow is being built. You will be able to buy OPGas with a credit card (via Coinbase Onramp) or by sending USDC directly from your wallet.
+        The OPGas purchase flow is being built. You will be able to buy OPGas by sending USDC directly from your connected wallet. No email, no password, no account creation.
       </p>
       <a href="/" class="btn-primary inline-block text-sm font-semibold px-6 py-3 rounded-lg shadow-sm">
         &larr; Back to Home
@@ -66,6 +81,41 @@
       <a href="/terms.html" class="text-sm text-gray-500 hover:text-gray-700 transition">Terms</a>
     </div>
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+  <script>
+    let connectedWallet = null;
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert('Please install MetaMask or another Web3 wallet to continue.');
+        return;
+      }
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+
+        const message = 'L2aaS: I authorize OPGas purchase.\nWallet: ' + address + '\nTimestamp: ' + Date.now();
+        const signature = await signer.signMessage(message);
+
+        connectedWallet = { address: address, signature: signature, message: message };
+
+        const short = address.slice(0, 6) + '...' + address.slice(-4);
+        document.getElementById('walletStatus').textContent = 'Connected: ' + short;
+        document.getElementById('walletStatus').className = 'text-xs text-green-600 font-medium mt-3';
+        document.getElementById('buyConnectBtn').textContent = 'Connected: ' + short;
+        document.getElementById('buyConnectBtn').classList.remove('btn-primary');
+        document.getElementById('buyConnectBtn').classList.add('bg-green-600', 'text-white');
+        document.getElementById('navConnectBtn').textContent = short;
+        document.getElementById('navConnectBtn').classList.remove('border-teal-600', 'text-teal-600');
+        document.getElementById('navConnectBtn').classList.add('border-green-600', 'text-green-600');
+      } catch (err) {
+        console.error('Wallet connect failed:', err);
+        alert('Wallet connection failed: ' + (err.message || err));
+      }
+    }
+  </script>
 
 </body>
 </html>
