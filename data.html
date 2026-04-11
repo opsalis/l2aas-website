@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Import / Export Data — L2aaS</title>
+  <meta name="description" content="Import data to your L2aaS blockchain or export it in any format. Upload .l2aas files from ChainClone, CSV, JSON, or XML. Export encrypted backups for free or unencrypted data for a gas fee.">
+  <link rel="canonical" href="https://l2aas.net/data.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x26D3;</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://l2aas.net/data.html">
+  <meta property="og:title" content="Import / Export Data — L2aaS">
+  <meta property="og:description" content="Import contracts and state to your blockchain, or export your data in any format.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#0d9488', dark: '#0f766e', light: '#ccfbf1', 50: '#f0fdfa' },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .btn-primary { background-color: #0d9488; color: #fff; }
+    .btn-primary:hover { background-color: #0f766e; transform: translateY(-1px); }
+    .btn-primary { transition: all 0.2s ease; }
+    .btn-outline { border: 2px solid #0d9488; color: #0d9488; }
+    .btn-outline:hover { background-color: #f0fdfa; }
+    .btn-outline { transition: all 0.2s ease; }
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+    .option-card { border: 1px solid #e5e7eb; border-radius: 1rem; padding: 2rem; background: #fff; transition: box-shadow 0.2s ease; }
+    .option-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .file-drop { border: 2px dashed #d1d5db; border-radius: 0.75rem; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+    .file-drop:hover, .file-drop.dragover { border-color: #0d9488; background: #f0fdfa; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+  <!-- Nav -->
+  <nav class="border-b border-gray-200 bg-white/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        <span class="text-teal-600">L2</span><span class="text-gray-900">aaS</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+        <a href="/#plans" class="hover:text-gray-900 transition">Plans</a>
+        <a href="/#buy" class="hover:text-gray-900 transition">Buy OPGas</a>
+        <a href="/data.html" class="text-teal-600 font-semibold">Import / Export</a>
+        <a href="/#how-it-works" class="hover:text-gray-900 transition">How It Works</a>
+        <a href="/#faq" class="hover:text-gray-900 transition">FAQ</a>
+        <a href="/terms.html" class="hover:text-gray-900 transition">Terms</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/#buy" class="btn-primary text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm">
+          Buy OPGas
+        </a>
+        <button aria-label="Toggle mobile menu" onclick="document.getElementById('mobile-nav').classList.toggle('open')" class="md:hidden p-2 text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav" class="mobile-menu flex-col gap-2 px-6 pb-4 md:hidden text-sm font-medium text-gray-600">
+      <a href="/#plans" class="py-2 hover:text-gray-900 transition">Plans</a>
+      <a href="/#buy" class="py-2 hover:text-gray-900 transition">Buy OPGas</a>
+      <a href="/data.html" class="py-2 text-teal-600 font-semibold">Import / Export</a>
+      <a href="/#how-it-works" class="py-2 hover:text-gray-900 transition">How It Works</a>
+      <a href="/#faq" class="py-2 hover:text-gray-900 transition">FAQ</a>
+      <a href="/terms.html" class="py-2 hover:text-gray-900 transition">Terms</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="bg-gradient-to-br from-teal-50 via-white to-sky-50">
+    <div class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4 text-gray-900">
+        Import / Export <span class="text-teal-600">Data</span>
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        Bring data into your blockchain or take it out. No lock-in &mdash; your data is always yours.
+      </p>
+    </div>
+  </section>
+
+  <!-- IMPORT SECTION -->
+  <section id="import" class="py-20 border-t border-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Import data to your blockchain</h2>
+        <p class="text-gray-600 max-w-xl mx-auto">Upload data to deploy contracts and state to your L2. All imports cost gas &mdash; your OPGas balance will be debited for each transaction written to your chain.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+        <!-- Option 1: .l2aas file -->
+        <div class="option-card border-teal-200 bg-teal-50/30">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">Import .l2aas File</h3>
+              <span class="badge bg-teal-600 text-white">Recommended</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mb-4 leading-relaxed">Encrypted export from <a href="https://chainclone.net" class="text-teal-700 underline hover:text-teal-900">ChainClone</a> or a previous L2aaS backup. Contains contracts, storage state, and balances.</p>
+          <div class="file-drop" id="l2aasDropZone" onclick="document.getElementById('l2aasFileInput').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleL2aasDrop(event)">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+            <p class="text-sm text-gray-600">Drop a <span class="font-mono font-semibold">.l2aas</span> file here or click to browse</p>
+            <input type="file" accept=".l2aas" id="l2aasFileInput" class="hidden" onchange="handleL2aasFile(this.files[0])">
+          </div>
+          <p id="l2aasFileStatus" class="text-sm mt-3 text-gray-500"></p>
+          <button onclick="importL2aasFile()" id="l2aasImportBtn" disabled class="btn-primary w-full mt-4 text-sm font-semibold px-6 py-3 rounded-lg shadow-sm opacity-50 cursor-not-allowed">Import to Chain</button>
+          <p class="text-xs text-gray-500 mt-2">File will be decrypted and deployed to your chain. Gas will be consumed.</p>
+        </div>
+
+        <!-- Option 2: CSV -->
+        <div class="option-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Import CSV</h3>
+          </div>
+          <p class="text-gray-600 text-sm mb-4 leading-relaxed">Standard comma-separated values. Map columns to contract fields during import.</p>
+          <div class="file-drop" onclick="document.getElementById('csvFileInput').click()">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+            <p class="text-sm text-gray-600">Drop a <span class="font-mono font-semibold">.csv</span> file here or click to browse</p>
+            <input type="file" accept=".csv" id="csvFileInput" class="hidden">
+          </div>
+          <button onclick="importCSV()" class="btn-outline w-full mt-4 text-sm font-semibold px-6 py-3 rounded-lg">Import CSV</button>
+        </div>
+
+        <!-- Option 3: JSON -->
+        <div class="option-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Import JSON</h3>
+          </div>
+          <p class="text-gray-600 text-sm mb-4 leading-relaxed">Standard JSON format with contract data, storage slots, and balances.</p>
+          <div class="file-drop" onclick="document.getElementById('jsonFileInput').click()">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+            <p class="text-sm text-gray-600">Drop a <span class="font-mono font-semibold">.json</span> file here or click to browse</p>
+            <input type="file" accept=".json" id="jsonFileInput" class="hidden">
+          </div>
+          <button onclick="importJSON()" class="btn-outline w-full mt-4 text-sm font-semibold px-6 py-3 rounded-lg">Import JSON</button>
+        </div>
+
+        <!-- Option 4: XML -->
+        <div class="option-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Import XML</h3>
+          </div>
+          <p class="text-gray-600 text-sm mb-4 leading-relaxed">Standard XML format with structured contract data.</p>
+          <div class="file-drop" onclick="document.getElementById('xmlFileInput').click()">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+            <p class="text-sm text-gray-600">Drop a <span class="font-mono font-semibold">.xml</span> file here or click to browse</p>
+            <input type="file" accept=".xml" id="xmlFileInput" class="hidden">
+          </div>
+          <button onclick="importXML()" class="btn-outline w-full mt-4 text-sm font-semibold px-6 py-3 rounded-lg">Import XML</button>
+        </div>
+
+      </div>
+
+      <div class="max-w-3xl mx-auto mt-10">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl px-6 py-4 flex items-start gap-3">
+          <svg class="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          <p class="text-sm text-amber-800">All imports cost gas. Your OPGas balance will be debited for each transaction written to your blockchain. Make sure you have enough OPGas before importing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPORT SECTION -->
+  <section id="export" class="py-20 border-t border-gray-100 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Export data from your blockchain</h2>
+        <p class="text-gray-600 max-w-xl mx-auto">Download your data as an encrypted backup or in standard open formats. No lock-in.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+        <!-- Option 1: Encrypted .l2aas (FREE) -->
+        <div class="option-card border-green-200 bg-green-50/50">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">Export as .l2aas Backup</h3>
+              <span class="badge bg-green-600 text-white">FREE</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mb-5 leading-relaxed">Download an encrypted backup of your blockchain data. Can be re-imported on any L2aaS chain. Cannot be used outside L2aaS &mdash; the file is encrypted.</p>
+
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">What to export</label>
+            <select id="exportScope" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+              <option value="all">Everything (all contracts + state)</option>
+              <option value="contracts">Contracts only (code + storage)</option>
+              <option value="balances">Account balances only</option>
+            </select>
+          </div>
+
+          <button onclick="exportEncrypted()" class="w-full bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-6 py-3 rounded-lg shadow-sm transition">
+            Download .l2aas Backup (Free)
+          </button>
+          <p class="text-xs text-green-700 mt-2">No gas cost. Encrypted &mdash; only importable on L2aaS.</p>
+        </div>
+
+        <!-- Option 2: Unencrypted (COSTS GAS) -->
+        <div class="option-card border-amber-200 bg-amber-50/50">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">Export as CSV / JSON / XML / SQL</h3>
+              <span class="badge bg-amber-600 text-white">COSTS GAS</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mb-5 leading-relaxed">Download your data in standard, open formats. Usable anywhere &mdash; no lock-in. Gas is debited from your OPGas balance.</p>
+
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">Format</label>
+            <select id="exportFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+              <option value="json">JSON</option>
+              <option value="csv">CSV</option>
+              <option value="xml">XML</option>
+              <option value="sql">SQL Dump</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">What to export</label>
+            <select id="exportScopeUnenc" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+              <option value="all">Everything</option>
+              <option value="contracts">Contracts only</option>
+              <option value="balances">Balances only</option>
+            </select>
+          </div>
+
+          <button onclick="exportUnencrypted()" class="w-full bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-3 rounded-lg shadow-sm transition">
+            Export (Costs Gas)
+          </button>
+          <p class="text-xs text-amber-700 mt-2">Estimated cost calculated after selecting scope. Unencrypted &mdash; usable anywhere.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-promo -->
+  <section class="py-16 border-t border-gray-100">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h3 class="text-xl font-bold text-gray-900 mb-3">Need to clone contracts from another chain?</h3>
+      <p class="text-gray-600 text-sm mb-6 leading-relaxed">
+        Use <a href="https://chainclone.net" class="text-teal-700 underline hover:text-teal-900 font-medium">ChainClone</a> to extract contracts, storage state, and balances from Ethereum, Base, Polygon, Arbitrum, or Optimism. Enter coupon code <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">l2aas</code> for a free encrypted extraction, then import the .l2aas file here.
+      </p>
+      <a href="https://chainclone.net" class="btn-outline inline-block text-sm font-semibold px-6 py-3 rounded-lg">
+        Go to ChainClone &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-gray-500">
+        &copy; 2026 L2aaS. All rights reserved.
+      </div>
+      <div class="flex items-center gap-6 text-sm text-gray-500">
+        <a href="/buy.html" class="hover:text-gray-700 transition">Buy OPGas</a>
+        <a href="/dashboard.html" class="hover:text-gray-700 transition">Dashboard</a>
+        <a href="/data.html" class="text-teal-600 font-medium">Import / Export</a>
+        <a href="/terms.html" class="hover:text-gray-700 transition">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- .l2aas file handling ---
+    let selectedL2aasFile = null;
+
+    function handleL2aasDrop(event) {
+      event.preventDefault();
+      event.currentTarget.classList.remove('dragover');
+      const file = event.dataTransfer.files[0];
+      if (file && file.name.endsWith('.l2aas')) {
+        handleL2aasFile(file);
+      } else {
+        document.getElementById('l2aasFileStatus').textContent = 'Please drop a .l2aas file.';
+        document.getElementById('l2aasFileStatus').className = 'text-sm mt-3 text-red-600';
+      }
+    }
+
+    function handleL2aasFile(file) {
+      if (!file) return;
+      selectedL2aasFile = file;
+      const status = document.getElementById('l2aasFileStatus');
+      const sizeKB = (file.size / 1024).toFixed(1);
+      status.textContent = 'Selected: ' + file.name + ' (' + sizeKB + ' KB)';
+      status.className = 'text-sm mt-3 text-teal-700 font-medium';
+      const btn = document.getElementById('l2aasImportBtn');
+      btn.disabled = false;
+      btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+
+    function importL2aasFile() {
+      if (!selectedL2aasFile) return;
+      const status = document.getElementById('l2aasFileStatus');
+      status.textContent = 'Uploading and decrypting... This may take a moment.';
+      status.className = 'text-sm mt-3 text-amber-600';
+
+      // TODO: POST to backend when k3s provisioner is deployed
+      // For now, show a placeholder message
+      setTimeout(function() {
+        status.textContent = 'Import endpoint not yet connected. The L2aaS backend will handle decryption and deployment when the provisioner is live.';
+        status.className = 'text-sm mt-3 text-gray-500';
+      }, 1500);
+    }
+
+    function importCSV() {
+      const file = document.getElementById('csvFileInput').files[0];
+      if (!file) { alert('Please select a CSV file first.'); return; }
+      alert('CSV import will be available when the L2aaS backend is deployed. File: ' + file.name);
+    }
+
+    function importJSON() {
+      const file = document.getElementById('jsonFileInput').files[0];
+      if (!file) { alert('Please select a JSON file first.'); return; }
+      alert('JSON import will be available when the L2aaS backend is deployed. File: ' + file.name);
+    }
+
+    function importXML() {
+      const file = document.getElementById('xmlFileInput').files[0];
+      if (!file) { alert('Please select an XML file first.'); return; }
+      alert('XML import will be available when the L2aaS backend is deployed. File: ' + file.name);
+    }
+
+    // --- Export handling ---
+    function exportEncrypted() {
+      const scope = document.getElementById('exportScope').value;
+      alert('Encrypted .l2aas export (' + scope + ') will be available when the L2aaS backend is deployed. This export is free.');
+    }
+
+    function exportUnencrypted() {
+      const format = document.getElementById('exportFormat').value;
+      const scope = document.getElementById('exportScopeUnenc').value;
+      alert('Exporting as ' + format.toUpperCase() + ' (' + scope + ') will be available when the L2aaS backend is deployed. This export costs gas.');
+    }
+  </script>
+
+</body>
+</html>
